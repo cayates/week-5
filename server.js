@@ -6,6 +6,8 @@ const bodyParser = require('body-parser')
 const mustacheExpress = require('mustache-express')
 const dal = require('./dal')
 const app = express()
+const wordGuess = require("./guesses.js")
+
 
 // setting up mustache basics
 
@@ -57,11 +59,22 @@ app.get('/', function (req, res) {
     res.render('home')
   })
 
+// app.get ("/", function(req, res){
+//     res.render('todo', {
+//         newData: dal.pendingItems(), 
+//         completedItems: dal.completedItems()})
+// })
+
   app.get('/home', function (req, res){
       res.render('home')
   })
 
 app.post('/', function (req, res){
+    wordGuess.push(req.body.guessbar)
     res.redirect('./home')
+    console.log(wordGuess)
+    console.log(wordGuess.length)
 })
+
+
 

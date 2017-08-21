@@ -1,3 +1,1 @@
-module.exports = [
-    {letter: ""}
-  ]
+module.exports = [];
