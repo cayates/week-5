@@ -1,0 +1,10 @@
+body {
+    background-color: lightcyan;
+}
+.gameHeader {
+    display: flex;
+    justify-content: space-around;
+}
+.wordAndGuess {
+    text-align: center;
+}
