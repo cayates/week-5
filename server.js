@@ -8,7 +8,8 @@ const dal = require('./dal')
 const app = express()
 const wordGuess = require("./guesses.js")
 const fs = require('fs')
-const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
+
+// console.log(words);
 
 // setting up mustache basics
 
@@ -16,16 +17,10 @@ app.engine('mustache', mustacheExpress())
 app.set('views', './views')
 app.set('view engine', 'mustache')
 
-// setting up body parser 
+// middleware 
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-// set up public folder for css
-
-app.use(express.static('public'));
-
-// setting up express session
 
 app.use(
     session({
@@ -45,6 +40,10 @@ app.use(
     console.log(req.isAuthenticated, 'session')
     next()
   })
+
+// set up public folder for css
+
+app.use(express.static('public'));
 
 // setting up port to listen on 
 
