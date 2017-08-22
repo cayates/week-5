@@ -8,3 +8,7 @@ body {
 .wordAndGuess {
     text-align: center;
 }
+.guesses {
+    display: inline-block;
+    padding-right: 10px;
+}

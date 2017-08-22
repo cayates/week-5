@@ -14,11 +14,17 @@
     <h1> _ _ _ _ _ _ _ </h1>
     </div>
     <form class = "loggingIn" action = "/" method = "post" >
-            <input type="text" name="guessbar" value="{{}}" placeholder = "" >
+            <input type="text" name="guessbar" value= "{{}}" placeholder = "Guess a letter, bro!" >
             <input class = "guessButton" type="submit" name="submit" value="Make a Guess!">
     </form>
         <div class = "lettersGuessed">
         <h2>Letters Guessed: </h2>
+            {{#wordGuess}}
+                <div class = "guesses">
+                    <h2>{{.}}</h2>
+                </div>
+            {{/wordGuess}}
+        </div>
     </div>
     </body>
 </html>

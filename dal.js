@@ -2,10 +2,8 @@ let guessedLetters = require("./guesses")
 
 function addLetter (letter){
     return guessedLetters.filter(function(item){
-        return item.letter
+        return item.guessbar
     })
 }
 
-module.exports = {
-    addLetter
-  }
+module.exports = { addLetter: addLetter }

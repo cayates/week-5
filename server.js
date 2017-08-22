@@ -7,7 +7,8 @@ const mustacheExpress = require('mustache-express')
 const dal = require('./dal')
 const app = express()
 const wordGuess = require("./guesses.js")
-
+const fs = require('fs')
+const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
 
 // setting up mustache basics
 
@@ -20,7 +21,7 @@ app.set('view engine', 'mustache')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// set up public folder for css  
+// set up public folder for css
 
 app.use(express.static('public'));
 
@@ -56,21 +57,16 @@ app.listen(app.get('port'), function () {
 // routes 
 
 app.get('/', function (req, res) {
-    res.render('home')
+    res.render('home', {wordGuess: wordGuess})
   })
 
-// app.get ("/", function(req, res){
-//     res.render('todo', {
-//         newData: dal.pendingItems(), 
-//         completedItems: dal.completedItems()})
-// })
-
   app.get('/home', function (req, res){
-      res.render('home')
+      res.render('home', {wordGuess: wordGuess}) 
   })
 
 app.post('/', function (req, res){
     wordGuess.push(req.body.guessbar)
+    dal.addLetter(req.body.guessbar)
     res.redirect('./home')
     console.log(wordGuess)
     console.log(wordGuess.length)
