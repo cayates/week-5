@@ -8,8 +8,7 @@ const dal = require('./dal')
 const app = express()
 const wordGuess = require("./guesses.js")
 const fs = require('fs')
-
-// console.log(words);
+const correctLetters = require('./correctGuesses.js')
 
 // setting up mustache basics
 
@@ -56,19 +55,19 @@ app.listen(app.get('port'), function () {
 // routes 
 
 app.get('/', function (req, res) {
-    res.render('home', {wordGuess: wordGuess})
+    res.render('home', {wordGuess: wordGuess, correctLetters: correctLetters})
   })
 
   app.get('/home', function (req, res){
-      res.render('home', {wordGuess: wordGuess}) 
+      res.render('home', {wordGuess: wordGuess, correctLetters: correctLetters}) 
   })
 
 app.post('/', function (req, res){
     wordGuess.push(req.body.guessbar)
     dal.addLetter(req.body.guessbar)
+    dal.checkLetterVsWord(req.body.guessbar)
     res.redirect('./home')
     console.log(wordGuess)
-    console.log(wordGuess.length)
 })
 
 

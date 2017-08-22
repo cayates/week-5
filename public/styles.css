@@ -5,6 +5,9 @@ body {
     display: flex;
     justify-content: space-around;
 }
+.correctLets {
+    display: inline-block;
+}
 .wordAndGuess {
     text-align: center;
 }
