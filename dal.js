@@ -17,14 +17,24 @@ function getMysteryWord (randomWord){
 }
 console.log(getMysteryWord())
 
-function checkLetterVsWord(letter){
-    for (let i = 0; i < mysteryWord.length; i++){
-    if (mysteryWord.includes(wordGuess[i])){
-        correctLetters.push(wordGuess[i])
-        console.log("success")
-    } else {
-        console.log("wrong")
-    }
-}}
+// function checkLetterVsWord(letter){
+//     for (let i = 0; i < mysteryWord.length; i++){
+//     if (mysteryWord.includes(wordGuess[i])){
+//         correctLetters.push(wordGuess[i])
+//         console.log("success")
+//     } else {
+//         console.log("wrong")
+//     }
+// }}
 
-module.exports = { addLetter: addLetter, getMysteryWord: getMysteryWord, checkLetterVsWord: checkLetterVsWord }
+function replaceWordWithDashes (dashes){
+    if (correctLetters.length < mysteryWord.length){
+        for (let i = 0; i < mysteryWord.length; i++){
+            let oneLetter = mysteryWord[i]
+            let newLetter = {id: oneLetter, display: "_"}
+            correctLetters.push(newLetter);
+        }
+    }
+}
+
+module.exports = { addLetter: addLetter, getMysteryWord: getMysteryWord, replaceWordWithDashes, checkLetterVsWord: checkLetterVsWord }

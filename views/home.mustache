@@ -14,9 +14,9 @@
     <h2>Correct Letters</h2>
     {{#correctLetters}}
         <div class = "correctLets">
-        <h2>{{.}}</h2>
+        <h2>{{display}}</h2>
         </div>
-        {{/correctLetters}}
+    {{/correctLetters}}
     </div>
     <form class = "loggingIn" action = "/" method = "post" >
             <input type="text" maxlength= "1" pattern= "[A-Za-z]" name="guessbar" placeholder = "Guess a letter, bro!" >

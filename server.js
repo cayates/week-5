@@ -1,4 +1,3 @@
-// setting up basics from modules that were installed 
 
 const express = require('express')
 const session = require('express-session')
@@ -59,13 +58,14 @@ app.get('/', function (req, res) {
   })
 
   app.get('/home', function (req, res){
+      dal.replaceWordWithDashes();
       res.render('home', {wordGuess: wordGuess, correctLetters: correctLetters}) 
   })
 
 app.post('/', function (req, res){
     wordGuess.push(req.body.guessbar)
     dal.addLetter(req.body.guessbar)
-    dal.checkLetterVsWord(req.body.guessbar)
+    // dal.checkLetterVsWord(req.body.guessbar)
     res.redirect('./home')
     console.log(wordGuess)
 })
