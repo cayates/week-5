@@ -16,12 +16,11 @@ function getMysteryWord (randomWord){
     return [...mysteryWord]
 }
 console.log(getMysteryWord())
-console.log(mysteryWord)
 
 function checkLetterVsWord(letter){
     for (let i = 0; i < mysteryWord.length; i++){
     if (mysteryWord.includes(wordGuess[i])){
-        correctLetters.push(letter[i])
+        correctLetters.push(wordGuess[i])
         console.log("success")
     } else {
         console.log("wrong")
