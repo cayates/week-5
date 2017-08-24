@@ -48,7 +48,7 @@ app.use(express.static('public'));
 app.set('port', 3000)
 
 app.listen(app.get('port'), function () {
-  console.log('App is running on 3000.')
+  console.log('App is running on 3000, brew dawgie.')
 })
 
 // routes 
@@ -64,8 +64,8 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res){
     wordGuess.push(req.body.guessbar)
-    dal.addLetter(req.body.guessbar)
-    // dal.checkLetterVsWord(req.body.guessbar)
+    dal.addLetter(req.body.guessbar)    
+    dal.checkLetterVsWord(req.body.guessbar)
     res.redirect('./home')
     console.log(wordGuess)
 })
