@@ -3,7 +3,9 @@ let mysteryWord = "";
 const wordGuess = require("./guesses.js")
 const correctLetters = require('./correctGuesses')
 const fs = require('fs');
-const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
+const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n"); 
+let remainingGuesses = "";
+
 
 function addLetter (letter){
     return guessedLetters.filter(function(item){
@@ -24,26 +26,41 @@ function replaceWordWithDashes (dashes){
             let newLetter = {id: oneLetter, display: "_"}
             correctLetters.push(newLetter);
         }
-    }
-    
+    }   
 }
 
-function checkLetterVsWord(letter){
-    if (mysteryWord.includes(wordGuess)){
-        for (let j = 0; j < mysteryWord.length; j++){
-            if (mysteryWord.includes(wordGuess[j])){
-            let pushedLetter = mysteryWord[j]            
-            let newLetter = {id: pushedLetter, display: pushedLetter}
-            correctLetters.splice([j], 1, newLetter);
+function checkLetterVsWord (guessedLetter){
+    console.log('is this false', mysteryWord.includes(guessedLetter))
+    if (mysteryWord.includes(guessedLetter)){
+        console.log(wordGuess);
+    for (let j = 0; j < mysteryWord.length; j++){
+        if (mysteryWord[j] == guessedLetter){            
+            let changeDashToLetter = mysteryWord[j]
+            correctLetters[j] = {id: guessedLetter, display: changeDashToLetter}
+            console.log('------------')
+            console.log(correctLetters);
+            console.log('------------')
         }
-    }
-    }
+}
+}
 }
 
-// if word contains guessed letter, loop over the word length. if that mystery word contains that index (j), replace the display (dash) with that letter (j)
+function guessCounter(){
 
-// currently this checks to see if it is contained.
-// need another if statement that says if you are on that letter that is contained
-// replace the dash with that letter
+}
+
+// set variable to 8 guesses
+// if mystery word does not contain wordguess, subtract one from the variable (use partial?)
+// else do nothing
+
+//  attempt with a do while loop
 
 module.exports = { addLetter: addLetter, getMysteryWord: getMysteryWord, replaceWordWithDashes, checkLetterVsWord: checkLetterVsWord }
+
+
+
+
+
+
+
+

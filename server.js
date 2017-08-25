@@ -9,6 +9,7 @@ const wordGuess = require("./guesses.js")
 const fs = require('fs')
 const correctLetters = require('./correctGuesses.js')
 
+
 // setting up mustache basics
 
 app.engine('mustache', mustacheExpress())
@@ -63,9 +64,10 @@ app.get('/', function (req, res) {
   })
 
 app.post('/', function (req, res){
-    wordGuess.push(req.body.guessbar)
-    dal.addLetter(req.body.guessbar)    
-    dal.checkLetterVsWord(req.body.guessbar)
+  const guessedLetter = req.body.guessbar;
+    wordGuess.push(guessedLetter )
+    dal.addLetter(guessedLetter )    
+    dal.checkLetterVsWord(guessedLetter )
     res.redirect('./home')
     console.log(wordGuess)
 })
