@@ -9,7 +9,6 @@ const wordGuess = require("./guesses.js")
 const fs = require('fs')
 const correctLetters = require('./correctGuesses.js')
 
-
 // setting up mustache basics
 
 app.engine('mustache', mustacheExpress())
@@ -26,7 +25,9 @@ app.use(
       secret: 'this is cool',
       resave: false,
       saveUninitialized: true,
-      cookie: { maxAge: null }
+      cookie: { maxAge: null },
+      guessesRemaining: 8,
+      alert: ''
     })
   )
 
@@ -49,28 +50,35 @@ app.use(express.static('public'));
 app.set('port', 3000)
 
 app.listen(app.get('port'), function () {
-  console.log('App is running on 3000, brew dawgie.')
+  console.log('App is running on 3000, bro ninja.')
 })
 
 // routes 
 
 app.get('/', function (req, res) {
-    res.render('home', {wordGuess: wordGuess, correctLetters: correctLetters})
+    res.render('home', {wordGuess: wordGuess, correctLetters: correctLetters, getGuesses: dal.getGuesses})
   })
 
   app.get('/home', function (req, res){
       dal.replaceWordWithDashes();
-      res.render('home', {wordGuess: wordGuess, correctLetters: correctLetters}) 
+      res.render('home', {wordGuess: wordGuess, correctLetters: correctLetters, getGuesses: dal.getGuesses}) 
   })
 
 app.post('/', function (req, res){
   const guessedLetter = req.body.guessbar;
-    wordGuess.push(guessedLetter )
-    dal.addLetter(guessedLetter )    
-    dal.checkLetterVsWord(guessedLetter )
+    wordGuess.push(guessedLetter)
+    dal.addLetter(guessedLetter)    
+    dal.checkLetterVsWord(guessedLetter)
+    dal.switchAndCounter(guessedLetter)
+    dal.winOrLose(guessedLetter)
     res.redirect('./home')
-    console.log(wordGuess)
 })
 
+app.get('/loser', function (req, res){
+  res.render('winner')
+})
 
-
+app.get('/winner', function (req, res){
+  if (winState = false)
+  res.render('loser')
+})
