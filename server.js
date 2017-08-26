@@ -26,7 +26,6 @@ app.use(
       resave: false,
       saveUninitialized: true,
       cookie: { maxAge: null },
-      guessesRemaining: 8,
       alert: ''
     })
   )
@@ -64,21 +63,26 @@ app.get('/', function (req, res) {
       res.render('home', {wordGuess: wordGuess, correctLetters: correctLetters, getGuesses: dal.getGuesses}) 
   })
 
-app.post('/', function (req, res){
-  const guessedLetter = req.body.guessbar;
-    wordGuess.push(guessedLetter)
-    dal.addLetter(guessedLetter)    
-    dal.checkLetterVsWord(guessedLetter)
-    dal.switchAndCounter(guessedLetter)
-    dal.winOrLose(guessedLetter)
-    res.redirect('./home')
-})
+  app.get('/loser', function (req, res){
+    res.render('loser')
+  })
+  
+  app.get('/winner', function (req, res) {
+    res.render('winner')
+  })
 
-app.get('/loser', function (req, res){
-  res.render('winner')
-})
+  app.post('/', function (req, res){
+    const guessedLetter = req.body.guessbar;
+      wordGuess.push(guessedLetter)
+      dal.addLetter(guessedLetter)    
+      dal.checkLetterVsWord(guessedLetter)
+      dal.switchAndCounter(guessedLetter)
+     if( dal.winOrLose(guessedLetter) ) {
+        res.redirect('./home') 
+     } else {
+        res.redirect('/loser')
+    }
+  })
 
-app.get('/winner', function (req, res){
-  if (winState = false)
-  res.render('loser')
-})
+
+

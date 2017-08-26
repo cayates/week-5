@@ -6,10 +6,12 @@ const fs = require('fs');
 const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n"); 
 let guesses = 8;
 let winState = true;
+let winnerWinner = true 
+
 
 function addLetter (letter){
     return guessedLetters.filter(function(item){
-        return item.guessbar
+        return item.guessbar;
     })
 }
 
@@ -61,22 +63,47 @@ function switchAndCounter(guessedLetter){
 
 // function to put the correct page based off of guesses remaining
 
-function winOrLose(guessedLetter){
+function winOrLose (guessedLetter) {
     let winState = true
-    if (guesses === 0){
-        winState = false
+    if (guesses === 0 ) {
+      winState = false
     } else {
-        winState = true
+      winState = true
     }
-    console.log(winState)
-}
+    return winState
+  }
+
+
+// function winner(guessedLetter){
+//     let winState = true;
+//     guessedLetter.forEach(function(item){
+//       if(item.display == '_'){
+//         winState = false
+//       }
+//     })
+//     return winState
+//   }
+
+// function winner(winnerChickenDinner){
+//     for (m = 0; m < mysteryWord.length; m++){
+//         if (mysteryWord.includes("_")){
+//             winnerWinner = false
+//         } else {
+//             winnerWinner = true 
+//         }
+//     } 
+//     return winnerWinner
+//     }
+
+// function winner(guessedLetter){
+//     let winnerWinner = true
+//     if (mysteryWord.includes("_")){
+//         winnerWinner = false
+//     } else {
+//         winnerWinner = true
+//     }
+//     return winnerWinner
+// }
 
 module.exports = { addLetter: addLetter, getMysteryWord: getMysteryWord, replaceWordWithDashes: replaceWordWithDashes, checkLetterVsWord: checkLetterVsWord, switchAndCounter: switchAndCounter, getGuesses: getGuesses, winOrLose: winOrLose }
-
-
-
-
-
-
-
 
