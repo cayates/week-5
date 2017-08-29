@@ -18,11 +18,10 @@ app.set('view engine', 'mustache')
 // middleware 
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use(bodyParser.urlencoded({ extended: false })) 
 app.use(
     session({
-      secret: 'this is cool',
+      secret: 'mystery game',
       resave: false,
       saveUninitialized: true,
       cookie: { maxAge: null },
@@ -36,7 +35,6 @@ app.use(
     } else {
       req.isAuthenticated = false
     }
-    console.log(req.isAuthenticated, 'session')
     next()
   })
 
@@ -49,7 +47,7 @@ app.use(express.static('public'));
 app.set('port', 3000)
 
 app.listen(app.get('port'), function () {
-  console.log('App is running on 3000, bro ninja.')
+  console.log('App is running on Andre 3000.')
 })
 
 // routes 
@@ -77,12 +75,14 @@ app.get('/', function (req, res) {
       dal.addLetter(guessedLetter)    
       dal.checkLetterVsWord(guessedLetter)
       dal.switchAndCounter(guessedLetter)
-     if( dal.winOrLose(guessedLetter) ) {
-        res.redirect('./home') 
-     } else {
-        res.redirect('/loser')
-    }
+      if (dal.winOrLose(guessedLetter)) {
+        if(dal.winner(guessedLetter)) {
+          return res.redirect('./winner')
+        }
+        res.redirect('./home')
+      } else {
+        res.redirect('./loser')
+      }
   })
-
 
 

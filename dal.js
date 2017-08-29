@@ -17,6 +17,7 @@ function addLetter (letter){
 
 function getMysteryWord (randomWord){
     mysteryWord = words[Math.floor(Math.random() * words.length)]
+    console.log(mysteryWord)
     return [...mysteryWord]
 }
 console.log(getMysteryWord())
@@ -24,8 +25,7 @@ console.log(getMysteryWord())
 function replaceWordWithDashes (dashes){
     if (correctLetters.length < mysteryWord.length){
         for (let i = 0; i < mysteryWord.length; i++){
-            let oneLetter = mysteryWord[i]
-            let newLetter = {id: oneLetter, display: "_"}
+            let newLetter = "_"
             correctLetters.push(newLetter);
         }
     }   
@@ -33,20 +33,19 @@ function replaceWordWithDashes (dashes){
 
 function checkLetterVsWord (guessedLetter){
     if (mysteryWord.includes(guessedLetter)){
+        let winnerStatus = false
     for (let j = 0; j < mysteryWord.length; j++){
         if (mysteryWord[j] == guessedLetter){            
             let changeDashToLetter = mysteryWord[j]
-            correctLetters[j] = {id: guessedLetter, display: changeDashToLetter}
+            correctLetters[j] = changeDashToLetter
         }
-}
-}
-}
+        }
+        }
+        }
 
 function getGuesses(){
     return guesses;
 }
-
-// this contains the functions to switch the correctness from false to true if the letter is contained
 
 function switchAndCounter(guessedLetter){
     let isCorrect = false         
@@ -57,11 +56,8 @@ function switchAndCounter(guessedLetter){
     }
     if (isCorrect === false){
         guesses -=1;
-        console.log(isCorrect)                        
     }
     }
-
-// function to put the correct page based off of guesses remaining
 
 function winOrLose (guessedLetter) {
     let winState = true
@@ -73,37 +69,19 @@ function winOrLose (guessedLetter) {
     return winState
   }
 
+function winner(guessedLetter){
+    console.log(correctLetters)
+    let arrayToWord = correctLetters.join("")
+    let winnerStatus = true
+    if (arrayToWord === mysteryWord){
+            winnerStatus = true
+        } else {
+            winnerStatus = false
+        }
+        return winnerStatus
+    }   
 
-// function winner(guessedLetter){
-//     let winState = true;
-//     guessedLetter.forEach(function(item){
-//       if(item.display == '_'){
-//         winState = false
-//       }
-//     })
-//     return winState
-//   }
+module.exports = { addLetter: addLetter, getMysteryWord: getMysteryWord, replaceWordWithDashes: replaceWordWithDashes, checkLetterVsWord: checkLetterVsWord, switchAndCounter: switchAndCounter, getGuesses: getGuesses, winOrLose: winOrLose, winner: winner }
 
-// function winner(winnerChickenDinner){
-//     for (m = 0; m < mysteryWord.length; m++){
-//         if (mysteryWord.includes("_")){
-//             winnerWinner = false
-//         } else {
-//             winnerWinner = true 
-//         }
-//     } 
-//     return winnerWinner
-//     }
-
-// function winner(guessedLetter){
-//     let winnerWinner = true
-//     if (mysteryWord.includes("_")){
-//         winnerWinner = false
-//     } else {
-//         winnerWinner = true
-//     }
-//     return winnerWinner
-// }
-
-module.exports = { addLetter: addLetter, getMysteryWord: getMysteryWord, replaceWordWithDashes: replaceWordWithDashes, checkLetterVsWord: checkLetterVsWord, switchAndCounter: switchAndCounter, getGuesses: getGuesses, winOrLose: winOrLose }
-
+// mysteryWord <-- this is the actual word
+// correctLetter <-- this is the array that contains display
